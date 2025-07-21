@@ -1,0 +1,61 @@
+[gd_scene load_steps=2 format=3 uid="uid://1ds1ewmnf7cp"]
+
+[ext_resource type="Script" uid="uid://felsrbo1gvxi" path="res://game/add_room.gd" id="1_d6w6c"]
+
+[node name="Gui" type="CanvasLayer"]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="MoneyLabel" type="Label" parent="VBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+text = "Money"
+
+[node name="SocialLabel" type="Label" parent="VBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+text = "Social"
+
+[node name="OccupancyLabel" type="Label" parent="VBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+text = "Occupancy"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/PanelContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="LeisureLabel" type="Label" parent="VBoxContainer/PanelContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Leisure "
+
+[node name="ComfortLabel" type="Label" parent="VBoxContainer/PanelContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Comfort"
+
+[node name="GameWindow" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Rooms" type="GridContainer" parent="VBoxContainer/GameWindow"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+columns = 4
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Add Room"
+script = ExtResource("1_d6w6c")

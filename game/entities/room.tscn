@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://bju4hjd1vspyh"]
+
+[ext_resource type="Texture2D" uid="uid://beet51ampna4p" path="res://game/assets/placeholder.jpg" id="1_c3a8y"]
+[ext_resource type="Script" uid="uid://cnxf22b7n1cic" path="res://game/entities/room.gd" id="1_pme4q"]
+
+[node name="Room" type="Area2D"]
+script = ExtResource("1_pme4q")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_c3a8y")
+centered = false
+
+[node name="Label" type="Label" parent="Sprite2D"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.0
+offset_top = -11.5
+offset_right = 23.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 120
+text = "Room"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(0, 0, 650, 0, 650, 360, 0, 360)

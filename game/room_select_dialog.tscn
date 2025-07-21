@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=3 uid="uid://bvhkyoonc37ri"]
+
+[ext_resource type="Script" uid="uid://bnacjhfki7esp" path="res://game/room_select_dialog.gd" id="1_l2tys"]
+
+[node name="RoomSelectDialog" type="CanvasLayer"]
+layer = 2
+script = ExtResource("1_l2tys")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -113.0
+offset_top = -28.5
+offset_right = 113.0
+offset_bottom = 28.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="RoomOptions" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="ButtonGroup" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Cancel" type="Button" parent="VBoxContainer/ButtonGroup"]
+layout_mode = 2
+text = "Cancel"
+
+[node name="Accept" type="Button" parent="VBoxContainer/ButtonGroup"]
+layout_mode = 2
+text = "Accept"
