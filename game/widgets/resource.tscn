@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://bc1pg8p2rlxug"]
+
+[ext_resource type="Script" uid="uid://bueuomcg4wo1r" path="res://game/widgets/resource.gd" id="1_dh2yf"]
+
+[node name="Resource" type="HBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_dh2yf")
+
+[node name="Icon" type="TextureRect" parent="."]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="."]
+layout_mode = 2
+
+[node name="Value" type="Label" parent="."]
+layout_mode = 2
