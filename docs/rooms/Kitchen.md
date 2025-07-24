@@ -1,6 +1,5 @@
 Category: #food
-Upgrades from:
-Upgrades to:
+Upgrades to: [[Commercial Kitchen]]
 Stats:
 
 Makes food

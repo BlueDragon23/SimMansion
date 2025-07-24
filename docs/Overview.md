@@ -10,7 +10,8 @@ Broadly, the game is a resource management game about growing a mansion. The man
 
 Money and social accumulate over time. The other stats are quantities, where certain thresholds (scaled to number of people) grant certain benefits. 
 
-- Money. Pretty simple conceptually. The main resource used to get new rooms/room upgrades. Earned by "work" rooms and some events
+- Money. Pretty simple conceptually. The main resource used to get new rooms/room upgrades. Earned by "work" rooms and some events. Expended in some higher quality rooms
+	- Rooms can be disabled, to prevent entering a fail state
 - Occupancy. How many beds do you have for people. Probably split into occupants + guest space
 - Leisure. Artistic or athletic pursuits to relax
 - Comfort. Food, lounges, bathrooms. Things that make you feel at home. Definitely overlaps with leisure in a tricky way. Some rooms will provide both, and I think that's ok
@@ -23,4 +24,3 @@ Money and social accumulate over time. The other stats are quantities, where cer
 - How to handle specific needs? Some kind of "traits" on rooms?
 - Is there some kind of development tree? Explicitly or hidden? You probably shouldn't get really esoteric rooms before a kitchen for example
 - Multiple pathways to a given room? e.g. bathroom OR gym both upgrade to massage parlour
-- Ongoing maintenance cost? Seems risky, in terms of accidental softlock

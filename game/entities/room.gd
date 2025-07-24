@@ -1,6 +1,8 @@
 class_name Room
 extends Area2D
 
+signal room_selected
+
 const room_scene: PackedScene = preload("res://game/entities/room.tscn")
 
 enum Traits {
@@ -20,3 +22,9 @@ static func create_room(room_data: RoomData) -> Room:
 	
 func _ready():
 	$Sprite2D/Label.text = room_data.name
+	
+func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
+			print("Selected room")
+			room_selected.emit()

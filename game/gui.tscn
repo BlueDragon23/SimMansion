@@ -55,17 +55,25 @@ text = "Comfort"
 [node name="GameWindow" type="Control" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 1
 
 [node name="Rooms" type="GridContainer" parent="VBoxContainer/GameWindow"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 columns = 4
 
 [node name="Interactables" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 8
+theme_override_constants/separation = 16
 
 [node name="AddRoom" type="Button" parent="VBoxContainer/Interactables"]
 layout_mode = 2
 text = "Add Room"
+
+[node name="UpgradeRoom" type="Button" parent="VBoxContainer/Interactables"]
+layout_mode = 2
+disabled = true
+text = "Upgrade Room"
