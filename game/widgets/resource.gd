@@ -14,3 +14,6 @@ func set_value(_value: int):
 	value = _value
 	$Value.text = str(_value)
 	
+func modify_value(_change: int):
+	value += _change
+	$Value.text = str(value)

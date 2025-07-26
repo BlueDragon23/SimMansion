@@ -1,9 +1,11 @@
 extends CanvasLayer
 
-var options = []
+var options: Array[RoomData] = []
 var selected_option
+var available_money
 
 signal accepted(selected)
+signal canceled()
 
 func _ready():
 	$VBoxContainer/ButtonGroup/Cancel.pressed.connect(on_cancel)
@@ -11,6 +13,8 @@ func _ready():
 	for option in options:
 		var button = Button.new()
 		button.text = option.name
+		if (option.cost > available_money):
+			button.disabled = true
 		button.pressed.connect(on_select.bind(option))
 		$VBoxContainer/RoomOptions.add_child(button)
 	
@@ -19,6 +23,7 @@ func on_select(option: RoomData):
 	
 	
 func on_cancel():
+	canceled.emit()
 	queue_free()
 	
 func on_accept():
