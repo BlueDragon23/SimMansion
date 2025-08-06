@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://bgf1o3wxkva7w"]
+
+[ext_resource type="Script" uid="uid://2dys40ngn1rj" path="res://game/entities/tech_tree.gd" id="1_g6eed"]
+[ext_resource type="PackedScene" uid="uid://d1ax5d1b8vsph" path="res://game/widgets/tech_subtree.tscn" id="2_k36o5"]
+
+[node name="TechTree" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_g6eed")
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+current_tab = 0
+
+[node name="Bedroom" parent="TabContainer" instance=ExtResource("2_k36o5")]
+layout_mode = 2
+title = "Bedroom"
+metadata/_tab_index = 0
+
+[node name="Craft" parent="TabContainer" instance=ExtResource("2_k36o5")]
+visible = false
+layout_mode = 2
+title = "Craft"
+metadata/_tab_index = 1
+
+[node name="Leisure" parent="TabContainer" instance=ExtResource("2_k36o5")]
+visible = false
+layout_mode = 2
+title = "Leisure"
+metadata/_tab_index = 2
+
+[node name="Needs" parent="TabContainer" instance=ExtResource("2_k36o5")]
+visible = false
+layout_mode = 2
+title = "Needs"
+metadata/_tab_index = 3
