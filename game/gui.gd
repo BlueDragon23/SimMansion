@@ -8,32 +8,31 @@ enum GameState {
 	PAUSED
 }
 
-var rooms: Array[RoomData] = []
 var selected_room: Room = null
 var last_money = Time.get_ticks_msec()
 var game_state = GameState.RUNNING
+var state = State.new()
 
 func _ready():
 	$VBoxContainer/Interactables/AddRoom.pressed.connect(open_dialog.bind(add_room, get_add_room_options))
 	$VBoxContainer/Interactables/UpgradeRoom.pressed.connect(open_dialog.bind(upgrade_room, get_upgrade_room_options))
-	$VBoxContainer/GameWindow.gui_input.connect(func handle(event):
-		if event is InputEventMouseButton:
-			if event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
-				room_deselected()
-	)
 	# Initial house stuff. Maybe just for testing?
 	add_room(RoomData.BEDROOM)
 	add_room(RoomData.OFFICE)
 	# reset money because I pay for my initial rooms lol
-	$VBoxContainer/PanelContainer/HBoxContainer/Money.set_value(0)
+	state.connect_for_resource_type(RoomData.Resources.MONEY, $VBoxContainer/PanelContainer/HBoxContainer/Money.set_value)
+	state.update_resource(RoomData.Resources.MONEY, 20)
+	state.connect_for_resource_type(RoomData.Resources.OCCUPANCY, $VBoxContainer/PanelContainer/HBoxContainer/Occupancy.set_value)
+	state.connect_for_resource_type(RoomData.Resources.FOOD, $VBoxContainer/PanelContainer/HBoxContainer2/Food.set_value)
+	$VBoxContainer/GameWindow.room_selected.connect(room_selected)
+	$VBoxContainer/GameWindow.room_deselected.connect(room_deselected)
 	
 func _process(delta):
 	# TODO: we should only track how much time has passed while the game is running for the purpose of money ticks
 	if (game_state == GameState.RUNNING and Time.get_ticks_msec() - last_money > MONEY_RATE):
-		var current = $VBoxContainer/PanelContainer/HBoxContainer/Money.value
 		# TODO: performance lol
-		var increase = rooms.reduce(func cash(accum: int, r: RoomData): return accum + r.resources.get(RoomData.Resources.MONEY, 0), 0)
-		$VBoxContainer/PanelContainer/HBoxContainer/Money.set_value(current + increase)
+		var increase = state.rooms.reduce(func cash(accum: int, r: RoomData): return accum + r.resources.get(RoomData.Resources.MONEY, 0), 0)
+		state.update_resource(RoomData.Resources.MONEY, increase)
 		last_money = Time.get_ticks_msec()
 
 func open_dialog(on_accept, get_options):
@@ -50,14 +49,8 @@ func get_add_room_options() -> Array[RoomData]:
 	return [RoomData.KITCHEN, RoomData.DINING_ROOM, RoomData.BEDROOM]
 
 func add_room(added_room: RoomData):
-	# create a room
-	var room = Room.create_room(added_room)
-	# Based on the size of the placeholder room image
-	room.position = Vector2(rooms.size() * (650 + 10), 0)
-	$VBoxContainer/GameWindow/Rooms.add_child(room)
-	rooms.append(added_room)
-	room.room_selected.connect(room_selected.bind(room))
-	$VBoxContainer/PanelContainer/HBoxContainer/Money.modify_value(-added_room.cost)
+	state.add_room(added_room)
+	$VBoxContainer/GameWindow.add_room(added_room)
 	update_resources()
 	
 func room_selected(room: Room):
@@ -81,19 +74,20 @@ func upgrade_room(upgraded_room: RoomData):
 	# TODO: there's definitely race conditions on selecting a different room
 	room.position = selected_room.position
 	room.room_selected.connect(room_selected.bind(room))
-	rooms.set(rooms.find(selected_room.room_data), upgraded_room)
+	state.rooms.set(state.rooms.find(selected_room.room_data), upgraded_room)
 	$VBoxContainer/GameWindow/Rooms.add_child(room)
 	$VBoxContainer/GameWindow/Rooms.remove_child(selected_room)
 	room_deselected()
-	$VBoxContainer/PanelContainer/HBoxContainer/Money.modify_value(-upgraded_room.cost)
+	state.update_resource(RoomData.Resources.MONEY, -upgraded_room.cost)
 	update_resources()
 	
 
 func update_resources():
+	# TODO: move this into state
 	var resources = {}
 	for resource in RoomData.Resources.values():
 		resources[resource] = 0
-		for room in rooms:
+		for room in state.rooms:
 			resources[resource] += room.resources.get(resource, 0)
 			
 	$VBoxContainer/PanelContainer/HBoxContainer/Social.set_value(resources[RoomData.Resources.SOCIAL])

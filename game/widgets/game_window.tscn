@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://ftm8yu4dwt0n"]
+
+[ext_resource type="Script" uid="uid://ltvj06pm5rba" path="res://game/widgets/game_window.gd" id="1_mcqcn"]
+
+[node name="GameWindow" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+script = ExtResource("1_mcqcn")
+
+[node name="Rooms" type="GridContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2

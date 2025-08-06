@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://1ds1ewmnf7cp"]
+[gd_scene load_steps=4 format=3 uid="uid://1ds1ewmnf7cp"]
 
 [ext_resource type="Script" uid="uid://bcieh50cr1djr" path="res://game/gui.gd" id="1_38j6r"]
 [ext_resource type="PackedScene" uid="uid://bc1pg8p2rlxug" path="res://game/widgets/resource.tscn" id="2_38j6r"]
+[ext_resource type="PackedScene" uid="uid://ftm8yu4dwt0n" path="res://game/widgets/game_window.tscn" id="3_8sgo1"]
 
 [node name="Gui" type="CanvasLayer"]
 script = ExtResource("1_38j6r")
@@ -52,17 +53,8 @@ text = "Leisure "
 layout_mode = 2
 text = "Comfort"
 
-[node name="GameWindow" type="Control" parent="VBoxContainer"]
+[node name="GameWindow" parent="VBoxContainer" instance=ExtResource("3_8sgo1")]
 layout_mode = 2
-size_flags_vertical = 3
-mouse_filter = 1
-
-[node name="Rooms" type="GridContainer" parent="VBoxContainer/GameWindow"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-mouse_filter = 2
-columns = 4
 
 [node name="Interactables" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
