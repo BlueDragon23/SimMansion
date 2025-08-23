@@ -8,11 +8,11 @@ extends Node
 ## Emit the resource type, and the new resource value
 signal resource_updated
 
-var rooms: Array[RoomData]
+var rooms: Array[Room]
 var events: Array[int] # TODO: implement events
 var resources: Dictionary[RoomData.Resources, int] = {}
 
-func add_room(room: RoomData):
+func add_room(room: Room):
 	rooms.append(room)
 	update_resource(RoomData.Resources.MONEY, -room.cost)
 	

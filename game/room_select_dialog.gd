@@ -1,8 +1,8 @@
 extends CanvasLayer
 
-var options: Array[RoomData] = []
-var selected_option
-var available_money
+var options: Array[Room] = []
+var selected_option: Room
+var available_money: int
 
 signal accepted(selected)
 signal canceled()
@@ -18,7 +18,7 @@ func _ready():
 		button.pressed.connect(on_select.bind(option))
 		$VBoxContainer/RoomOptions.add_child(button)
 	
-func on_select(option: RoomData):
+func on_select(option: Room):
 	self.selected_option = option
 	
 	

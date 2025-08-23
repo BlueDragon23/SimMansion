@@ -1,23 +1,22 @@
+class_name TechSubtree
 extends Control
 
-@export
-var title: String
-
-var room_roots: Array[RoomData] = []
+@export var title: String
 
 func _ready() -> void:
 	$VBoxContainer/Heading.text = title
 
-func render() -> void:
+func draw_tree(room_roots: Array[Room]) -> void:
 	# Render all rooms in a tree. Nodes may have multiple parents, just to keep things fun
-	var pending = room_roots
+	var pending = room_roots.duplicate()
 	var pending_connections = {}
-	var next: RoomData = pending.pop_back()
+	var next: Room = pending.pop_back()
+	print(next)
 	while next != null:
 		print("Adding node " + next.name)
 		render_node(next)
-		pending_connections[next.name] = next.upgrades_to
-		pending.append_array(next.upgrades_to.map(func resolve(r): return RoomData.ROOM_LOOKUP[r]))
+		pending_connections[next.name] = next.upgrades_to.map(func(x): x.name)
+		pending.append_array(next.upgrades_to)
 		next = pending.pop_back()
 	for source in pending_connections:
 		if pending_connections[source].size() == 0:
@@ -28,7 +27,7 @@ func render() -> void:
 	$VBoxContainer/GraphEdit.arrange_nodes()
 	
 
-func render_node(room: RoomData):
+func render_node(room: Room):
 	var node = GraphNode.new()
 	node.add_child(Control.new())
 	node.set_slot_enabled_left(0, false)

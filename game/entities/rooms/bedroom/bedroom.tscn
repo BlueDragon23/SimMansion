@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://doxxodykfvt3r"]
+
+[ext_resource type="Texture2D" uid="uid://beet51ampna4p" path="res://game/assets/placeholder.jpg" id="1_l1g2a"]
+[ext_resource type="Script" uid="uid://dbc6ywc6b4yth" path="res://game/entities/rooms/bedroom/bedroom.gd" id="1_v2266"]
+
+[node name="Bedroom" type="Area2D"]
+script = ExtResource("1_v2266")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(0, 0, 500, 0, 500, 500, 0, 500)
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+texture = ExtResource("1_l1g2a")
+texture_offset = Vector2(200, 0)
+polygon = PackedVector2Array(0, 0, 500, 0, 500, 500, 0, 500)
+
+[node name="Label" type="Label" parent="Polygon2D"]
+offset_left = 92.0
+offset_top = 268.0
+offset_right = 235.0
+offset_bottom = 313.0
+text = "Bedroom"

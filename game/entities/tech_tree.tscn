@@ -22,23 +22,27 @@ grow_vertical = 2
 current_tab = 0
 
 [node name="Bedroom" parent="TabContainer" instance=ExtResource("2_k36o5")]
+unique_name_in_owner = true
 layout_mode = 2
 title = "Bedroom"
 metadata/_tab_index = 0
 
 [node name="Craft" parent="TabContainer" instance=ExtResource("2_k36o5")]
+unique_name_in_owner = true
 visible = false
 layout_mode = 2
 title = "Craft"
 metadata/_tab_index = 1
 
 [node name="Leisure" parent="TabContainer" instance=ExtResource("2_k36o5")]
+unique_name_in_owner = true
 visible = false
 layout_mode = 2
 title = "Leisure"
 metadata/_tab_index = 2
 
 [node name="Needs" parent="TabContainer" instance=ExtResource("2_k36o5")]
+unique_name_in_owner = true
 visible = false
 layout_mode = 2
 title = "Needs"
