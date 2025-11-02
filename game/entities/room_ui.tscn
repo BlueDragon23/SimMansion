@@ -6,25 +6,20 @@
 [node name="Room" type="Area2D"]
 script = ExtResource("1_scnt1")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_7ln68")
-centered = false
-
-[node name="Label" type="Label" parent="Sprite2D"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -23.0
-offset_top = -11.5
-offset_right = 23.0
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 120
-text = "Room"
-
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(0, 0, 650, 0, 650, 360, 0, 360)
+polygon = PackedVector2Array(0, 0, 600, 0, 600, 400, 0, 400)
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+texture = ExtResource("2_7ln68")
+texture_offset = Vector2(400, 0)
+polygon = PackedVector2Array(0, 0, 600, 0, 600, 400, 0, 400)
+
+[node name="Title" type="Label" parent="Polygon2D"]
+unique_name_in_owner = true
+offset_left = 21.0
+offset_top = 225.0
+offset_right = 578.0
+offset_bottom = 308.0
+theme_override_font_sizes/font_size = 60
+text = "Room"
+horizontal_alignment = 1

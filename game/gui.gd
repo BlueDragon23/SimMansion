@@ -5,20 +5,23 @@ const MONEY_RATE = 2000
 
 enum GameState {
 	RUNNING,
+	PLACING,
 	PAUSED
 }
 
 var selected_room: Room = null
+var placing_room: Room = null
+var placing_overlay = null
 var last_money := Time.get_ticks_msec()
 var game_state := GameState.RUNNING
 var state := State.new()
 
 func _ready():
-	%AddRoom.pressed.connect(open_dialog.bind(add_room, get_add_room_options, "Add Room"))
+	%AddRoom.pressed.connect(open_dialog.bind(start_room_placement, get_add_room_options, "Add Room"))
 	%UpgradeRoom.pressed.connect(open_dialog.bind(upgrade_room, get_upgrade_room_options, "Upgrade Room"))
 	# Initial house stuff. Maybe just for testing?
-	add_room(Rooms.bedroom)
-	add_room(Rooms.office)
+	add_room(Vector2(0, 0), Rooms.bedroom)
+	add_room(Vector2(500, 0), Rooms.office)
 	# reset money because I pay for my initial rooms lol
 	state.connect_for_resource_type(RoomData.Resources.MONEY, $VBoxContainer/PanelContainer/HBoxContainer/Money.set_value)
 	state.update_resource(RoomData.Resources.MONEY, 1000)
@@ -49,11 +52,28 @@ func open_dialog(on_accept, get_options, title: String):
 func get_add_room_options() -> Array[Room]:
 	return AvailableRooms.get_available_rooms()
 
-func add_room(added_room: Room):
-	state.add_room(added_room)
-	$VBoxContainer/GameWindow.add_room(added_room)
-	update_resources()
-	AvailableRooms.refresh_available_rooms()
+func start_room_placement(adding_room: Room):
+	self.game_state = GameState.PLACING
+	self.placing_room = adding_room
+	var placing_overlay = preload("res://game/widgets/placing_room.tscn").instantiate()
+	placing_overlay.add_child(RoomUI.create_room(adding_room))
+	self.placing_overlay = placing_overlay
+	add_child(placing_overlay)
+	placing_overlay.on_click.connect(add_room.bind(adding_room))
+
+func add_room(position: Vector2, added_room: Room):
+	print("Testing position " + str(position))
+	if %GameWindow.is_valid_placement(Rect2(position, Vector2(500, 500))):
+		print("Adding")
+		self.game_state = GameState.RUNNING
+		remove_child(self.placing_overlay)
+		self.placing_overlay = null
+		state.add_room(added_room)
+		%GameWindow.add_room(added_room, position)
+		update_resources()
+		AvailableRooms.refresh_available_rooms()
+	else:
+		print("Not adding to illegal position " + str(position))
 	
 func room_selected(room: Room):
 	#TODO: better selection state
@@ -69,6 +89,7 @@ func get_upgrade_room_options() -> Array[Room]:
 
 func upgrade_room(upgraded_room: Room):
 	# We're replacing the selected room
+	self.game_state = GameState.RUNNING
 	# TODO: there's definitely race conditions on selecting a different room
 	state.rooms.set(state.rooms.find(selected_room), upgraded_room)
 	$VBoxContainer/GameWindow.remove_room(selected_room)

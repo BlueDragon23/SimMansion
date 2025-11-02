@@ -14,7 +14,15 @@ size_flags_vertical = 3
 mouse_filter = 1
 script = ExtResource("1_mcqcn")
 
-[node name="Rooms" type="GridContainer" parent="."]
+[node name="Overlay" type="Panel" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Rooms" type="GridContainer" parent="Overlay"]
+unique_name_in_owner = true
+show_behind_parent = true
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0

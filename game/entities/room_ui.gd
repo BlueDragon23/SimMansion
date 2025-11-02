@@ -25,7 +25,7 @@ static func create_room(room_data: Room):
 	return new_room
 	
 func _ready():
-	$Sprite2D/Label.text = room_data.name
+	%Title.text = room_data.name
 	
 func _input_event(_viewport: Viewport, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton:

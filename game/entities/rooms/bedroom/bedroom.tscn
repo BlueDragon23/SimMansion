@@ -14,7 +14,8 @@ texture = ExtResource("1_l1g2a")
 texture_offset = Vector2(200, 0)
 polygon = PackedVector2Array(0, 0, 500, 0, 500, 500, 0, 500)
 
-[node name="Label" type="Label" parent="Polygon2D"]
+[node name="Title" type="Label" parent="Polygon2D"]
+unique_name_in_owner = true
 offset_left = 92.0
 offset_top = 268.0
 offset_right = 235.0

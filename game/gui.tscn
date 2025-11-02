@@ -54,6 +54,7 @@ layout_mode = 2
 text = "Comfort"
 
 [node name="GameWindow" parent="VBoxContainer" instance=ExtResource("3_8sgo1")]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="Interactables" type="HBoxContainer" parent="VBoxContainer"]
