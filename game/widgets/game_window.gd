@@ -23,7 +23,9 @@ func reshuffle():
 	for r in $Rooms.get_children():
 		r.position = Vector2(x, y)
 		x += 660
-		y += 0
+		if (x + 660 > get_window().size.x):
+			y += 600
+			x = 0
 
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:

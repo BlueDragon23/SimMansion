@@ -18,4 +18,3 @@ static var bedroom_suite: Room = load("res://game/data/rooms/suite.tres")
 static var swimming_pool: Room = load("res://game/data/rooms/swimming_pool.tres")
 
 static var all: Array[Room] = [bedroom, bunk_room, classroom, commercial_kitchen, dining_room, infinity_pool, kitchen, lap_pool, lecture_hall, nursery, office, bedroom_suite, swimming_pool]
-

@@ -17,7 +17,6 @@ extends Control
 func _ready() -> void:
 	var all_rooms: Array[Room] = []
 	room_group.load_all_into(all_rooms)
-	print(all_rooms)
 	bedroom.draw_tree(all_rooms.filter(func (x): x.name == "Bedroom"))
 	craft.draw_tree(all_rooms.filter(func (x): x.name == "Office"))
 	leisure.draw_tree(all_rooms.filter(func (x): x.name == "Dining Room" or x.name == "Swimming Pool"))

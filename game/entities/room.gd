@@ -6,6 +6,7 @@ extends Resource
 @export var upgrades_to: Array[Room] = []
 @export var traits: Array[String] = []
 @export var scene: PackedScene
+@export var is_base_room: bool
 # Resources
 @export var occupancy: int = 0
 @export var food: int = 0

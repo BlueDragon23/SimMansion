@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/rooms/Playground.md",
+                "file": "docs/WIP.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Playground"
+              "title": "WIP"
             }
           }
         ]
@@ -171,17 +171,19 @@
   },
   "active": "e5e0ed13c84d143f",
   "lastOpenFiles": [
+    "README.md",
+    "docs/WIP.md",
+    "docs/rooms/Playground.md",
+    "game/theme.tres-4vJ8w5",
+    "game/theme.tres-weokyS",
+    "game/theme.tres-hYBdiQ",
+    "game/theme.tres-b8DpHX",
+    "game/theme.tres-AUUgci",
+    "game/scripts/available_rooms.gd.uid",
+    "game/scripts/available_rooms.gd",
+    "game/scripts",
     "game/theme.tres-Xkrpwc",
     "game/theme.tres-WtWkLV",
-    "game/entities/rooms/bedroom/bedroom.gd.uid",
-    "game/entities/rooms/bedroom/bedroom.gd",
-    "game/entities/rooms/bedroom/bedroom.tscn",
-    "game/entities/rooms/bedroom",
-    "game/entities/rooms",
-    "game/generated/rooms.gd.uid",
-    "game/generated/rooms.gd",
-    "game/generated/rooms.tres",
-    "game/generated",
     "addons/resources_spreadsheet_view/LICENSE.md",
     "addons/godot_resource_groups/resource_group.svg",
     "docs/rooms/Music Room.md",
@@ -205,9 +207,7 @@
     "docs/rooms/Merry go round.md",
     "docs/Overview.md",
     "docs/Event Design.md",
-    "README.md",
     "docs/rooms/Bunk Room.md",
-    "docs/templates/Room Template.md",
     "game/assets/placeholder.jpg",
     "placeholder.jpg",
     "icon.svg"

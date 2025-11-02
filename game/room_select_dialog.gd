@@ -1,5 +1,6 @@
 extends CanvasLayer
 
+var title: String = ""
 var options: Array[Room] = []
 var selected_option: Room
 var available_money: int
@@ -8,15 +9,16 @@ signal accepted(selected)
 signal canceled()
 
 func _ready():
-	$VBoxContainer/ButtonGroup/Cancel.pressed.connect(on_cancel)
-	$VBoxContainer/ButtonGroup/Accept.pressed.connect(on_accept)
+	%Cancel.pressed.connect(on_cancel)
+	%Accept.pressed.connect(on_accept)
+	%Title.text = title
 	for option in options:
 		var button = Button.new()
 		button.text = option.name
 		if (option.cost > available_money):
 			button.disabled = true
 		button.pressed.connect(on_select.bind(option))
-		$VBoxContainer/RoomOptions.add_child(button)
+		%RoomOptions.add_child(button)
 	
 func on_select(option: Room):
 	self.selected_option = option

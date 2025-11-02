@@ -14,20 +14,20 @@ var game_state := GameState.RUNNING
 var state := State.new()
 
 func _ready():
-	$VBoxContainer/Interactables/AddRoom.pressed.connect(open_dialog.bind(add_room, get_add_room_options))
-	$VBoxContainer/Interactables/UpgradeRoom.pressed.connect(open_dialog.bind(upgrade_room, get_upgrade_room_options))
+	%AddRoom.pressed.connect(open_dialog.bind(add_room, get_add_room_options, "Add Room"))
+	%UpgradeRoom.pressed.connect(open_dialog.bind(upgrade_room, get_upgrade_room_options, "Upgrade Room"))
 	# Initial house stuff. Maybe just for testing?
 	add_room(Rooms.bedroom)
 	add_room(Rooms.office)
 	# reset money because I pay for my initial rooms lol
 	state.connect_for_resource_type(RoomData.Resources.MONEY, $VBoxContainer/PanelContainer/HBoxContainer/Money.set_value)
-	state.update_resource(RoomData.Resources.MONEY, 50)
+	state.update_resource(RoomData.Resources.MONEY, 1000)
 	state.connect_for_resource_type(RoomData.Resources.OCCUPANCY, $VBoxContainer/PanelContainer/HBoxContainer/Occupancy.set_value)
 	state.connect_for_resource_type(RoomData.Resources.FOOD, $VBoxContainer/PanelContainer/HBoxContainer2/Food.set_value)
 	$VBoxContainer/GameWindow.room_selected.connect(room_selected)
 	$VBoxContainer/GameWindow.room_deselected.connect(room_deselected)
 	
-func _process(delta):
+func _process(_delta):
 	# TODO: we should only track how much time has passed while the game is running for the purpose of money ticks
 	if (game_state == GameState.RUNNING and Time.get_ticks_msec() - last_money > MONEY_RATE):
 		# TODO: performance lol
@@ -35,8 +35,9 @@ func _process(delta):
 		state.update_resource(RoomData.Resources.MONEY, increase)
 		last_money = Time.get_ticks_msec()
 
-func open_dialog(on_accept, get_options):
+func open_dialog(on_accept, get_options, title: String):
 	var dialog_window = preload("res://game/room_select_dialog.tscn").instantiate()
+	dialog_window.title = title
 	dialog_window.options = get_options.call()
 	dialog_window.accepted.connect(on_accept)
 	dialog_window.accepted.connect(func a(): self.game_state = GameState.RUNNING)
@@ -46,21 +47,22 @@ func open_dialog(on_accept, get_options):
 	get_tree().root.add_child(dialog_window)
 	
 func get_add_room_options() -> Array[Room]:
-	return [Rooms.kitchen, Rooms.dining_room, Rooms.bedroom]
+	return AvailableRooms.get_available_rooms()
 
 func add_room(added_room: Room):
 	state.add_room(added_room)
 	$VBoxContainer/GameWindow.add_room(added_room)
 	update_resources()
+	AvailableRooms.refresh_available_rooms()
 	
 func room_selected(room: Room):
 	#TODO: better selection state
 	self.selected_room = room
-	$VBoxContainer/Interactables/UpgradeRoom.disabled = false
+	%UpgradeRoom.disabled = false
 	
 func room_deselected():
 	self.selected_room = null
-	$VBoxContainer/Interactables/UpgradeRoom.disabled = true
+	%UpgradeRoom.disabled = true
 	
 func get_upgrade_room_options() -> Array[Room]:
 	return selected_room.upgrades_to
