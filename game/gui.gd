@@ -1,8 +1,5 @@
 extends CanvasLayer
 
-## How many milliseconds pass between each money grant
-const MONEY_RATE = 2000
-
 enum GameState {
 	RUNNING,
 	PLACING,
@@ -12,7 +9,6 @@ enum GameState {
 var selected_room: Room = null
 var placing_room: Room = null
 var placing_overlay = null
-var last_money := Time.get_ticks_msec()
 var game_state := GameState.RUNNING
 var state := State.new()
 
@@ -23,20 +19,15 @@ func _ready():
 	add_room(Vector2(0, 0), Rooms.bedroom)
 	add_room(Vector2(500, 0), Rooms.office)
 	# reset money because I pay for my initial rooms lol
-	state.connect_for_resource_type(RoomData.Resources.MONEY, $VBoxContainer/PanelContainer/HBoxContainer/Money.set_value)
-	state.update_resource(RoomData.Resources.MONEY, 1000)
-	state.connect_for_resource_type(RoomData.Resources.OCCUPANCY, $VBoxContainer/PanelContainer/HBoxContainer/Occupancy.set_value)
-	state.connect_for_resource_type(RoomData.Resources.FOOD, $VBoxContainer/PanelContainer/HBoxContainer2/Food.set_value)
+	state.connect_for_resource_type(RoomData.Resources.ROOM_TOKENS, %Tokens.set_value)
+	state.update_resource(RoomData.Resources.ROOM_TOKENS, 10)
+	state.connect_for_resource_type(RoomData.Resources.OCCUPANCY, %Occupancy.set_value)
+	state.connect_for_resource_type(RoomData.Resources.SOCIAL, %Social.set_value)
+	state.connect_for_resource_type(RoomData.Resources.COMFORT, %Comfort.set_value)
+	state.connect_for_resource_type(RoomData.Resources.LEISURE, %Leisure.set_value)
+	state.connect_for_resource_type(RoomData.Resources.FOOD, %Food.set_value)
 	$VBoxContainer/GameWindow.room_selected.connect(room_selected)
 	$VBoxContainer/GameWindow.room_deselected.connect(room_deselected)
-	
-func _process(_delta):
-	# TODO: we should only track how much time has passed while the game is running for the purpose of money ticks
-	if (game_state == GameState.RUNNING and Time.get_ticks_msec() - last_money > MONEY_RATE):
-		# TODO: performance lol
-		var increase = state.rooms.reduce(func cash(accum: int, r: Room): return accum + r.income, 0)
-		state.update_resource(RoomData.Resources.MONEY, increase)
-		last_money = Time.get_ticks_msec()
 
 func open_dialog(on_accept, get_options, title: String):
 	var dialog_window = preload("res://game/room_select_dialog.tscn").instantiate()
@@ -45,7 +36,7 @@ func open_dialog(on_accept, get_options, title: String):
 	dialog_window.accepted.connect(on_accept)
 	dialog_window.accepted.connect(func a(): self.game_state = GameState.RUNNING)
 	dialog_window.canceled.connect(func cancel(): self.game_state = GameState.RUNNING)
-	dialog_window.available_money = $VBoxContainer/PanelContainer/HBoxContainer/Money.value
+	dialog_window.available_money = %Tokens.value
 	game_state = GameState.PAUSED
 	get_tree().root.add_child(dialog_window)
 	
@@ -62,18 +53,13 @@ func start_room_placement(adding_room: Room):
 	placing_overlay.on_click.connect(add_room.bind(adding_room))
 
 func add_room(position: Vector2, added_room: Room):
-	print("Testing position " + str(position))
 	if %GameWindow.is_valid_placement(Rect2(position, Vector2(500, 500))):
-		print("Adding")
 		self.game_state = GameState.RUNNING
 		remove_child(self.placing_overlay)
 		self.placing_overlay = null
 		state.add_room(added_room)
 		%GameWindow.add_room(added_room, position)
-		update_resources()
 		AvailableRooms.refresh_available_rooms()
-	else:
-		print("Not adding to illegal position " + str(position))
 	
 func room_selected(room: Room):
 	#TODO: better selection state
@@ -95,11 +81,3 @@ func upgrade_room(upgraded_room: Room):
 	$VBoxContainer/GameWindow.remove_room(selected_room)
 	$VBoxContainer/GameWindow.add_room(upgraded_room)
 	room_deselected()
-	
-
-func update_resources():
-	# TODO: move this into state
-	var occupancy = 0
-	for room: Room in state.rooms:
-		occupancy += room.occupancy
-	$VBoxContainer/PanelContainer/HBoxContainer/Occupancy.set_value(occupancy)

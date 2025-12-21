@@ -24,3 +24,6 @@ Money and social accumulate over time. The other stats are quantities, where cer
 - How to handle specific needs? Some kind of "traits" on rooms?
 - Is there some kind of development tree? Explicitly or hidden? You probably shouldn't get really esoteric rooms before a kitchen for example
 - Multiple pathways to a given room? e.g. bathroom OR gym both upgrade to massage parlour
+- Consider a tile based approach to room placement, like Dorfromantik
+	- Completing events gives you extra tiles/rooms to place
+	- Means choices are centred around when to add vs upgrade rooms, what upgrade trees to pursue

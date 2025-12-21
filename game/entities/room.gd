@@ -13,3 +13,4 @@ extends Resource
 @export var comfort: int = 0
 @export var income: int = 0
 @export var social: int = 0
+@export var leisure: int = 0

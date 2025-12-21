@@ -14,7 +14,14 @@ var resources: Dictionary[RoomData.Resources, int] = {}
 
 func add_room(room: Room):
 	rooms.append(room)
-	update_resource(RoomData.Resources.MONEY, -room.cost)
+	update_resource(RoomData.Resources.ROOM_TOKENS, -1)
+	update_resource(RoomData.Resources.ROOM_TOKENS, room.income)
+	update_resource(RoomData.Resources.LEISURE, room.leisure)
+	update_resource(RoomData.Resources.COMFORT, room.comfort)
+	update_resource(RoomData.Resources.SOCIAL, room.social)
+	update_resource(RoomData.Resources.FOOD, room.food)
+	update_resource(RoomData.Resources.OCCUPANCY, room.occupancy)
+	
 	
 func complete_event():
 	pass

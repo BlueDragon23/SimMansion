@@ -21,17 +21,20 @@ layout_mode = 2
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="Money" parent="VBoxContainer/PanelContainer/HBoxContainer" instance=ExtResource("2_38j6r")]
+[node name="Tokens" parent="VBoxContainer/PanelContainer/HBoxContainer" instance=ExtResource("2_38j6r")]
+unique_name_in_owner = true
 layout_mode = 2
 icon = "uid://dl323ci0vootx"
-resource_name = "Money"
+resource_name = "Tokens"
 
 [node name="Social" parent="VBoxContainer/PanelContainer/HBoxContainer" instance=ExtResource("2_38j6r")]
+unique_name_in_owner = true
 layout_mode = 2
 icon = "uid://dl323ci0vootx"
 resource_name = "Social"
 
 [node name="Occupancy" parent="VBoxContainer/PanelContainer/HBoxContainer" instance=ExtResource("2_38j6r")]
+unique_name_in_owner = true
 layout_mode = 2
 icon = "uid://dl323ci0vootx"
 resource_name = "Occupancy"
@@ -41,17 +44,22 @@ layout_mode = 2
 alignment = 2
 
 [node name="Food" parent="VBoxContainer/PanelContainer/HBoxContainer2" instance=ExtResource("2_38j6r")]
+unique_name_in_owner = true
 layout_mode = 2
 icon = "uid://dl323ci0vootx"
 resource_name = "Food"
 
-[node name="LeisureLabel" type="Label" parent="VBoxContainer/PanelContainer/HBoxContainer2"]
+[node name="Comfort" parent="VBoxContainer/PanelContainer/HBoxContainer2" instance=ExtResource("2_38j6r")]
+unique_name_in_owner = true
 layout_mode = 2
-text = "Leisure "
+icon = "uid://dl323ci0vootx"
+resource_name = "Comfort"
 
-[node name="ComfortLabel" type="Label" parent="VBoxContainer/PanelContainer/HBoxContainer2"]
+[node name="Leisure" parent="VBoxContainer/PanelContainer/HBoxContainer2" instance=ExtResource("2_38j6r")]
+unique_name_in_owner = true
 layout_mode = 2
-text = "Comfort"
+icon = "uid://dl323ci0vootx"
+resource_name = "Leisure"
 
 [node name="GameWindow" parent="VBoxContainer" instance=ExtResource("3_8sgo1")]
 unique_name_in_owner = true

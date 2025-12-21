@@ -9,8 +9,10 @@ enum Resources {
 	OCCUPANCY,
 	## A static resource based on the house
 	COMFORT,
-	## A rate of income generation
-	MONEY,
+	## A static resource based on the house
+	LEISURE,
+	## A resource for buying/upgrading rooms
+	ROOM_TOKENS,
 	## A resource that can be expended on new rooms/events
-	SOCIAL
+	SOCIAL,
 }
