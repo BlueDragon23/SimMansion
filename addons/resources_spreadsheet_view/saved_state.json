@@ -1,5 +1,16 @@
 {
   "column_properties": {
+    "res://game/data/events/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
     "res://game/data/rooms/": {
       "metadata/_custom_type_script": {
         "visibility": 0.0
@@ -13,7 +24,8 @@
     }
   },
   "recent_paths": [
-    "res://game/data/rooms/"
+    "res://game/data/rooms/",
+    "res://game/data/events/"
   ],
   "table_functions": {
     "filter": [

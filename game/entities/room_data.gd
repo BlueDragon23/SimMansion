@@ -16,3 +16,39 @@ enum Resources {
 	## A resource that can be expended on new rooms/events
 	SOCIAL,
 }
+
+static func get_resource_name(resource: Resources):
+	match resource:
+		Resources.FOOD:
+			return "Food"
+		Resources.OCCUPANCY:
+			return "Occupancy"
+		Resources.COMFORT:
+			return "Comfort"
+		Resources.LEISURE:
+			return "Leisure"
+		Resources.ROOM_TOKENS:
+			return "Tokens"
+		Resources.SOCIAL:
+			return "Social"
+
+enum Traits {
+	EDUCATIONAL,
+	ARTISTIC,
+	ATHLETIC,
+	BEDROOM,
+	FOOD
+}
+
+static func get_trait_name(t: Traits):
+	match t:
+		Traits.EDUCATIONAL:
+			return "Educational"
+		Traits.ARTISTIC:
+			return "Artistic"
+		Traits.ATHLETIC:
+			return "Athletic"
+		Traits.BEDROOM:
+			return "Bedroom"
+		Traits.FOOD:
+			return "Food"

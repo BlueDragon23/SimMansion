@@ -11,9 +11,10 @@ var placing_room: Room = null
 var placing_overlay = null
 var game_state := GameState.RUNNING
 var state := State.new()
+var event_ui_template = preload("res://game/entities/event_ui.tscn")
 
 func _ready():
-	%AddRoom.pressed.connect(open_dialog.bind(start_room_placement, get_add_room_options, "Add Room"))
+	%AddRoom.pressed.connect(open_dialog.bind(start_room_placement, AvailableRooms.get_available_rooms, "Add Room"))
 	%UpgradeRoom.pressed.connect(open_dialog.bind(upgrade_room, get_upgrade_room_options, "Upgrade Room"))
 	# Initial house stuff. Maybe just for testing?
 	add_room(Vector2(0, 0), Rooms.bedroom)
@@ -26,8 +27,10 @@ func _ready():
 	state.connect_for_resource_type(RoomData.Resources.COMFORT, %Comfort.set_value)
 	state.connect_for_resource_type(RoomData.Resources.LEISURE, %Leisure.set_value)
 	state.connect_for_resource_type(RoomData.Resources.FOOD, %Food.set_value)
-	$VBoxContainer/GameWindow.room_selected.connect(room_selected)
-	$VBoxContainer/GameWindow.room_deselected.connect(room_deselected)
+	state.event_updated.connect(redraw_events)
+	state.add_event(load("res://game/entities/events/creative_workshop.tres"))
+	%GameWindow.room_selected.connect(room_selected)
+	%GameWindow.room_deselected.connect(room_deselected)
 
 func open_dialog(on_accept, get_options, title: String):
 	var dialog_window = preload("res://game/room_select_dialog.tscn").instantiate()
@@ -39,9 +42,6 @@ func open_dialog(on_accept, get_options, title: String):
 	dialog_window.available_money = %Tokens.value
 	game_state = GameState.PAUSED
 	get_tree().root.add_child(dialog_window)
-	
-func get_add_room_options() -> Array[Room]:
-	return AvailableRooms.get_available_rooms()
 
 func start_room_placement(adding_room: Room):
 	self.game_state = GameState.PLACING
@@ -55,8 +55,9 @@ func start_room_placement(adding_room: Room):
 func add_room(position: Vector2, added_room: Room):
 	if %GameWindow.is_valid_placement(Rect2(position, Vector2(500, 500))):
 		self.game_state = GameState.RUNNING
-		remove_child(self.placing_overlay)
-		self.placing_overlay = null
+		if self.placing_overlay != null:
+			remove_child(self.placing_overlay)
+			self.placing_overlay = null
 		state.add_room(added_room)
 		%GameWindow.add_room(added_room, position)
 		AvailableRooms.refresh_available_rooms()
@@ -78,6 +79,13 @@ func upgrade_room(upgraded_room: Room):
 	self.game_state = GameState.RUNNING
 	# TODO: there's definitely race conditions on selecting a different room
 	state.rooms.set(state.rooms.find(selected_room), upgraded_room)
-	$VBoxContainer/GameWindow.remove_room(selected_room)
-	$VBoxContainer/GameWindow.add_room(upgraded_room)
+	%GameWindow.remove_room(selected_room)
+	%GameWindow.add_room(upgraded_room)
 	room_deselected()
+
+func redraw_events():
+	%Events.get_children().clear()
+	for e in state.events:
+		var event_scene = event_ui_template.instantiate()
+		event_scene.event = e
+		%Events.add_child(event_scene)

@@ -7,9 +7,11 @@ extends Node
 
 ## Emit the resource type, and the new resource value
 signal resource_updated
+## Emit an event that events have changed
+signal event_updated
 
 var rooms: Array[Room]
-var events: Array[int] # TODO: implement events
+var events: Array[Event]
 var resources: Dictionary[RoomData.Resources, int] = {}
 
 func add_room(room: Room):
@@ -22,6 +24,9 @@ func add_room(room: Room):
 	update_resource(RoomData.Resources.FOOD, room.food)
 	update_resource(RoomData.Resources.OCCUPANCY, room.occupancy)
 	
+func add_event(event: Event):
+	events.append(event)
+	event_updated.emit()
 	
 func complete_event():
 	pass

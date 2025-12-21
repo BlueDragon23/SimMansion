@@ -5,13 +5,6 @@ signal room_selected
 
 const room_scene: PackedScene = preload("res://game/entities/room_ui.tscn")
 
-enum Traits {
-	EDUCATIONAL,
-	ARTISTIC,
-	ATHLETIC,
-	BEDROOM,
-	FOOD
-}
 
 var room_data: Room
 

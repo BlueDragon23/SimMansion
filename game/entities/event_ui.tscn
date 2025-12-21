@@ -1,0 +1,58 @@
+[gd_scene load_steps=4 format=3 uid="uid://dapxs2ioj0ieu"]
+
+[ext_resource type="Theme" uid="uid://4gu68hgk7qwp" path="res://game/theme.tres" id="1_js528"]
+[ext_resource type="Script" uid="uid://cs85iga1vj0vc" path="res://game/entities/event_ui.gd" id="2_gis6n"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gis6n"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.6, 0.6, 0.6, 0.823529)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="EventUi" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1903.0
+offset_bottom = -836.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_js528")
+theme_override_styles/panel = SubResource("StyleBoxFlat_gis6n")
+script = ExtResource("2_gis6n")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Name" type="RichTextLabel" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "Name"
+fit_content = true
+
+[node name="Description" type="RichTextLabel" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Description"
+fit_content = true
+
+[node name="Resources" type="RichTextLabel" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "[b]Resources:[/b]"
+fit_content = true
+
+[node name="Traits" type="RichTextLabel" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "[b]Traits:[/b]"
+fit_content = true
