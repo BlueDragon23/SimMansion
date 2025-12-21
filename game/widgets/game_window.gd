@@ -23,6 +23,7 @@ func _ready():
 
 func add_room(added_room: Room, position: Vector2 = Vector2(100_000, 100_000)):
 	var room = RoomUI.create_room(added_room)
+	room.name = added_room.name
 	%Rooms.add_child(room)
 	var base_position: Vector2
 	if position == Vector2(100_000, 100_000):
@@ -32,10 +33,11 @@ func add_room(added_room: Room, position: Vector2 = Vector2(100_000, 100_000)):
 		room.position = get_grid_square(position) * GRID_SIZE
 	room.room_selected.connect(func s(): room_selected.emit(added_room))
 	
-func remove_room(removed_room: Room):
+func replace_room(added_room: Room, removed_room: Room):
 	var node = %Rooms.get_node(removed_room.name)
+	var pos = node.position
 	%Rooms.remove_child(node)
-	reshuffle()
+	add_room(added_room, pos)
 
 # TODO: this is a dumb hack
 func reshuffle():

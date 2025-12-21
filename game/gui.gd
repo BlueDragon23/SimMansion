@@ -6,6 +6,9 @@ enum GameState {
 	PAUSED
 }
 
+@onready var game_window = %GameWindow
+@onready var events = %Events
+
 var selected_room: Room = null
 var placing_room: Room = null
 var placing_overlay = null
@@ -29,8 +32,8 @@ func _ready():
 	state.connect_for_resource_type(RoomData.Resources.FOOD, %Food.set_value)
 	state.event_updated.connect(redraw_events)
 	state.add_event(load("res://game/entities/events/creative_workshop.tres"))
-	%GameWindow.room_selected.connect(room_selected)
-	%GameWindow.room_deselected.connect(room_deselected)
+	game_window.room_selected.connect(room_selected)
+	game_window.room_deselected.connect(room_deselected)
 
 func open_dialog(on_accept, get_options, title: String):
 	var dialog_window = preload("res://game/room_select_dialog.tscn").instantiate()
@@ -53,13 +56,13 @@ func start_room_placement(adding_room: Room):
 	placing_overlay.on_click.connect(add_room.bind(adding_room))
 
 func add_room(position: Vector2, added_room: Room):
-	if %GameWindow.is_valid_placement(Rect2(position, Vector2(500, 500))):
+	if game_window.is_valid_placement(Rect2(position, Vector2(500, 500))):
 		self.game_state = GameState.RUNNING
 		if self.placing_overlay != null:
 			remove_child(self.placing_overlay)
 			self.placing_overlay = null
 		state.add_room(added_room)
-		%GameWindow.add_room(added_room, position)
+		game_window.add_room(added_room, position)
 		AvailableRooms.refresh_available_rooms()
 	
 func room_selected(room: Room):
@@ -79,13 +82,12 @@ func upgrade_room(upgraded_room: Room):
 	self.game_state = GameState.RUNNING
 	# TODO: there's definitely race conditions on selecting a different room
 	state.rooms.set(state.rooms.find(selected_room), upgraded_room)
-	%GameWindow.remove_room(selected_room)
-	%GameWindow.add_room(upgraded_room)
+	game_window.replace_room(upgraded_room, selected_room)
 	room_deselected()
 
 func redraw_events():
-	%Events.get_children().clear()
+	events.get_children().clear()
 	for e in state.events:
 		var event_scene = event_ui_template.instantiate()
 		event_scene.event = e
-		%Events.add_child(event_scene)
+		events.add_child(event_scene)
