@@ -4,7 +4,7 @@ extends Resource
 @export var name: String
 @export var cost: int = 10
 @export var upgrades_to: Array[Room] = []
-@export var traits: Array[String] = []
+@export var traits: Array[RoomData.Traits] = []
 @export var scene: PackedScene
 @export var is_base_room: bool
 # Resources

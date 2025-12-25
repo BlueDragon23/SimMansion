@@ -6,7 +6,7 @@ enum GameState {
 	PAUSED
 }
 
-@onready var game_window = %GameWindow
+@onready var game_window: GameWindow = %GameWindow
 @onready var events = %Events
 
 var selected_room: Room = null
@@ -22,6 +22,8 @@ func _ready():
 	# Initial house stuff. Maybe just for testing?
 	add_room(Vector2(0, 0), Rooms.bedroom)
 	add_room(Vector2(500, 0), Rooms.office)
+	add_room(Vector2(1100, 0), Rooms.swimming_pool)
+	add_room(Vector2(0, 600), Rooms.ceramics_studio)
 	# reset money because I pay for my initial rooms lol
 	state.connect_for_resource_type(RoomData.Resources.ROOM_TOKENS, %Tokens.set_value)
 	state.update_resource(RoomData.Resources.ROOM_TOKENS, 10)
@@ -81,13 +83,14 @@ func upgrade_room(upgraded_room: Room):
 	# We're replacing the selected room
 	self.game_state = GameState.RUNNING
 	# TODO: there's definitely race conditions on selecting a different room
-	state.rooms.set(state.rooms.find(selected_room), upgraded_room)
+	state.replace_room(upgraded_room, selected_room)
 	game_window.replace_room(upgraded_room, selected_room)
 	room_deselected()
 
 func redraw_events():
-	events.get_children().clear()
+	events.get_children().map(events.remove_child)
 	for e in state.events:
 		var event_scene = event_ui_template.instantiate()
+		event_scene.name = e.name
 		event_scene.event = e
 		events.add_child(event_scene)

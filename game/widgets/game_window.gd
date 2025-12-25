@@ -1,3 +1,4 @@
+class_name GameWindow
 extends Control
 
 signal room_selected
@@ -66,6 +67,5 @@ func is_valid_placement(proposed: Rect2) -> bool:
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		var snapped = (event.position / 100).floor() * 100
-		print(is_valid_placement(Rect2(snapped, Vector2(500, 500))))
 		if event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
 			room_deselected.emit()
