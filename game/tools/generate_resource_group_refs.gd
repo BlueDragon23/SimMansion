@@ -2,6 +2,7 @@
 extends EditorScript
 
 func _run() -> void:
+	generate_code(preload("res://game/entities/all_events.tres"), "Event", "res://game/generated/events.gd")
 	generate_code(preload("res://game/entities/all_rooms.tres"), "Room", "res://game/generated/rooms.gd")
 
 func generate_code(resource_group: ResourceGroup, type: String, output: String):

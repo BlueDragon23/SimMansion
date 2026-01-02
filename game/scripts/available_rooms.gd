@@ -1,5 +1,5 @@
 class_name AvailableRooms
-extends Node
+extends Resource
 
 static var current_available_rooms = [Rooms.kitchen, Rooms.dining_room, Rooms.bedroom]
 

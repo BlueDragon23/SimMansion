@@ -1,8 +1,8 @@
 class_name GameWindow
 extends Control
 
-signal room_selected
-signal room_deselected
+signal room_selected(room: Room)
+signal room_deselected()
 
 # TODO: how to make this scalable?
 static var GRID_SIZE = 100

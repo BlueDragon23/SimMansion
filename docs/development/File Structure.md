@@ -10,6 +10,9 @@ All of the code for the game objects. Currently that's rooms and events. Right n
 # /generated
 
 Generated code. Currently specifically for the resource groups generated code. 
+# /glue
+
+Code to connect elements together. Primarily for joining UI and state components, but we'll see. 
 # /scripts
 
 General helper code that doesn't belong in another place. Specifically scripts that aren't associated with an actual game object. 

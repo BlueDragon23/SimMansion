@@ -4,6 +4,11 @@ extends Node
 ## This class tracks the main game state
 ## Hopefully everything that I would need to put in a save file basically
 ## Rooms in the house, events completed, current resources, etc.
+enum GameState {
+	RUNNING,
+	PLACING,
+	PAUSED
+}
 
 ## Emit the resource type, and the new resource value
 signal resource_updated
@@ -17,6 +22,10 @@ var events: Array[Event]
 var resources: Dictionary[RoomData.Resources, int] = {}
 ## How many rooms have a given trait
 var traits: Dictionary[RoomData.Traits, int] = {}
+var game_state: GameState = GameState.RUNNING
+
+func update_game_state(game_state: GameState):
+	self.game_state = game_state
 
 func add_room(room: Room):
 	rooms.append(room)

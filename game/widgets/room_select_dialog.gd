@@ -5,12 +5,13 @@ var options: Array[Room] = []
 var selected_option: Room
 var available_money: int
 
-signal accepted(selected)
+signal accepted(selected: Room)
 signal canceled()
 
 func _ready():
 	%Cancel.pressed.connect(on_cancel)
 	%Accept.pressed.connect(on_accept)
+	%Accept.disabled = true
 	%Title.text = title
 	for option in options:
 		var button = Button.new()
@@ -22,6 +23,7 @@ func _ready():
 	
 func on_select(option: Room):
 	self.selected_option = option
+	%Accept.disabled = false
 	
 	
 func on_cancel():
@@ -29,5 +31,6 @@ func on_cancel():
 	queue_free()
 	
 func on_accept():
-	accepted.emit(selected_option)
-	queue_free()
+	if selected_option != null:
+		accepted.emit(selected_option)
+		queue_free()

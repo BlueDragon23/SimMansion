@@ -2,7 +2,7 @@ class_name Room
 extends Resource
 
 @export var name: String
-@export var cost: int = 10
+@export var cost: int = 1
 @export var upgrades_to: Array[Room] = []
 @export var traits: Array[RoomData.Traits] = []
 @export var scene: PackedScene

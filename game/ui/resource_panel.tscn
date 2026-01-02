@@ -1,0 +1,54 @@
+[gd_scene load_steps=4 format=3 uid="uid://cedvo1mfi0jss"]
+
+[ext_resource type="Theme" uid="uid://4gu68hgk7qwp" path="res://game/theme.tres" id="1_pg81l"]
+[ext_resource type="Script" uid="uid://ugwmokvbb00d" path="res://game/ui/resource_panel.gd" id="2_codk1"]
+[ext_resource type="PackedScene" uid="uid://bc1pg8p2rlxug" path="res://game/widgets/resource.tscn" id="2_pphfp"]
+
+[node name="ResourcePanel" type="PanelContainer"]
+size_flags_horizontal = 3
+theme = ExtResource("1_pg81l")
+script = ExtResource("2_codk1")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Tokens" parent="HBoxContainer" instance=ExtResource("2_pphfp")]
+unique_name_in_owner = true
+layout_mode = 2
+icon = "uid://dl323ci0vootx"
+resource_name = "Tokens"
+
+[node name="Social" parent="HBoxContainer" instance=ExtResource("2_pphfp")]
+unique_name_in_owner = true
+layout_mode = 2
+icon = "uid://dl323ci0vootx"
+resource_name = "Social"
+
+[node name="Occupancy" parent="HBoxContainer" instance=ExtResource("2_pphfp")]
+unique_name_in_owner = true
+layout_mode = 2
+icon = "uid://dl323ci0vootx"
+resource_name = "Occupancy"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+layout_mode = 2
+alignment = 2
+
+[node name="Food" parent="HBoxContainer2" instance=ExtResource("2_pphfp")]
+unique_name_in_owner = true
+layout_mode = 2
+icon = "uid://dl323ci0vootx"
+resource_name = "Food"
+
+[node name="Comfort" parent="HBoxContainer2" instance=ExtResource("2_pphfp")]
+unique_name_in_owner = true
+layout_mode = 2
+icon = "uid://dl323ci0vootx"
+resource_name = "Comfort"
+
+[node name="Leisure" parent="HBoxContainer2" instance=ExtResource("2_pphfp")]
+unique_name_in_owner = true
+layout_mode = 2
+icon = "uid://dl323ci0vootx"
+resource_name = "Leisure"

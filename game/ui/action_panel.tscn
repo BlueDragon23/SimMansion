@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://dguddms2ad4jh"]
+
+[ext_resource type="Script" uid="uid://b5fldt4lap5ox" path="res://game/ui/action_panel.gd" id="1_etkyu"]
+
+[node name="ActionPanel" type="PanelContainer"]
+script = ExtResource("1_etkyu")
+
+[node name="Interactables" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/separation = 16
+
+[node name="AddRoom" type="Button" parent="Interactables"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Add Room"
+
+[node name="UpgradeRoom" type="Button" parent="Interactables"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+text = "Upgrade Room"

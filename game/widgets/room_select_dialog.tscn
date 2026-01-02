@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bvhkyoonc37ri"]
 
-[ext_resource type="Script" uid="uid://bnacjhfki7esp" path="res://game/room_select_dialog.gd" id="1_l2tys"]
+[ext_resource type="Script" uid="uid://bnacjhfki7esp" path="res://game/widgets/room_select_dialog.gd" id="1_l2tys"]
 [ext_resource type="Theme" uid="uid://4gu68hgk7qwp" path="res://game/theme.tres" id="2_c1tgx"]
 
 [node name="RoomSelectDialog" type="CanvasLayer"]

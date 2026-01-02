@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bvkjv5qts32nq"]
+
+[ext_resource type="Script" uid="uid://8ih27a0fjit7" path="res://game/ui/event_panel.gd" id="1_quv2p"]
+
+[node name="EventPanel" type="PanelContainer"]
+script = ExtResource("1_quv2p")
+
+[node name="Events" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
