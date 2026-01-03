@@ -23,12 +23,12 @@ func update_selected_room(selected_room: Room):
 	self.selected_room = selected_room
 	upgrade_room_button.disabled = (selected_room == null)
 
-func open_dialog(on_accept, get_options, title: String):
+func open_dialog(on_accept: Callable, get_options: Callable, title: String):
 	var dialog_window = preload("res://game//widgets/room_select_dialog.tscn").instantiate()
 	dialog_window.title = title
 	dialog_window.options = get_options.call()
 	dialog_window.accepted.connect(on_accept)
-	dialog_window.accepted.connect(func a(): update_game_state.emit(State.GameState.RUNNING))
+	dialog_window.accepted.connect(func a(_r): update_game_state.emit(State.GameState.RUNNING))
 	dialog_window.canceled.connect(func cancel(): update_game_state.emit(State.GameState.RUNNING))
 	dialog_window.available_money = current_tokens
 	update_game_state.emit(State.GameState.PAUSED)
