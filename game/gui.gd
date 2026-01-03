@@ -25,10 +25,12 @@ func _ready():
 	event_panel.get_events = func(): return state.events
 	state.event_updated.connect(event_panel.redraw_events)
 	state.add_event(Events.creative_workshop)
+	state.add_event(Events.let_there_be_life)
+	state.add_event(Events.pool_party)
 	
 	action_panel.update_game_state.connect(state.update_game_state)
 	game_window.room_selected.connect(func(r): self.selected_room = r)
-	game_window.room_deselected.connect(func(r): self.selected_room = null)
+	game_window.room_deselected.connect(func(_r): self.selected_room = null)
 
 func start_room_placement(adding_room: Room):
 	state.game_state = State.GameState.PLACING

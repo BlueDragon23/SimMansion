@@ -17,6 +17,9 @@ erDiagram
 	Event {
 		String name
 		String description
+		Dictionary[Trait-int] requiredTraits
+		Dictionary[Resource-int] requiredResources
+		Array[String] requiredRooms
 	}
 	House {}
 	Token {}

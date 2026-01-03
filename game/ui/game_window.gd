@@ -68,4 +68,4 @@ func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		var snapped = (event.position / 100).floor() * 100
 		if event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
-			room_deselected.emit()
+			room_deselected.emit(null)
